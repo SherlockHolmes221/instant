@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+>
+
+    <LinearLayout
+        android:paddingRight="16dp"
+        android:paddingLeft="16dp"
+        android:paddingTop="16dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout">
+
+        <TextView
+            android:textSize="20dp"
+            android:text="试试看关注一些感兴趣的主题"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:textSize="15dp"
+            android:paddingTop="10dp"
+            android:text="我们给你最细致、精确的信息服务。不必担心，你随时都可以关闭推送通知。"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <GridView
+        android:paddingTop="10dp"
+        android:id="@+id/id_welcome_gridView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numColumns="3"
+        android:horizontalSpacing="10dp"
+        android:verticalSpacing="10dp"
+        android:layout_below="@+id/linearLayout">
+    </GridView>
+
+    <Button
+        android:id="@+id/id_welcome_enter"
+        android:paddingBottom="0dp"
+        android:textSize="20dp"
+        android:background="#FFF9FF40"
+        android:gravity="center"
+        android:text="开始使用"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+</RelativeLayout>

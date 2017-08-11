@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <myandroid.jike.view.FlowLayout
+        android:padding="20dp"
+        android:id="@+id/id_mine_showListFlowLayout"
+        android:layout_width="match_parent"
+        android:background="#E5E5F5"
+        android:layout_height="wrap_content">
+
+    </myandroid.jike.view.FlowLayout>
+</LinearLayout>
