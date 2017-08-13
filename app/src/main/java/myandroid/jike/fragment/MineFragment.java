@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +18,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import myandroid.jike.NewsResult;
 import myandroid.jike.R;
-import myandroid.jike.activity.ShowAttentionListActivity;
 import myandroid.jike.Sqlite.DatabaseHelper;
+import myandroid.jike.activity.ShowAttentionListActivity;
+
+import static myandroid.jike.utils.HttpUtils.sendMessage;
 
 
 public class MineFragment extends Fragment{
@@ -89,6 +93,16 @@ public class MineFragment extends Fragment{
                         Intent intent = new Intent();
                         intent.setClass(getContext(),ShowAttentionListActivity.class);
                         startActivity(intent);
+                        break;
+                    case 1:
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                NewsResult newsResult = sendMessage("top");
+                                Log.e("TAG",newsResult.toString());
+                            }
+                        }).start();
                         break;
                     default:
                         break;

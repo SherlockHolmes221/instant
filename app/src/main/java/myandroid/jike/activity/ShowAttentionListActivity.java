@@ -26,9 +26,9 @@ public class ShowAttentionListActivity extends Activity {
     private DatabaseHelper databaseHelper;
     private List<String> attentionList = new ArrayList<>();
 
-    private String[] strings = {"影视", "星座", "图书",//所有主题集合
-            "NBA", "足球", "笑话",
-            "新闻", "成语", "电视"};
+    private String[] strings = {"头条", "社会", "国内",
+                                 "国际", "娱乐", "体育",
+                                 "军事", "科技", "财经","时尚"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState){

@@ -35,17 +35,18 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private List<Map<String, Object>> dataList;
 
-    private int[] icon = {
-            R.drawable.movie, R.drawable.constellation, R.drawable.book,
-            R.drawable.nba, R.drawable.score, R.drawable.funny,
-            R.drawable.news, R.drawable.idiom, R.drawable.tv};
-    private String[] iconName = {"影视", "星座", "图书",
-                                   "NBA", "足球", "笑话",
-                                  "新闻", "成语", "电视"};
+    private int[] icon = {R.drawable.top,R.drawable.shehui,  R.drawable.guonei,
+            R.drawable.guoji,R.drawable.yule,R.drawable.tiyu,
+            R.drawable.junshi,R.drawable.keji,R.drawable.caijing,R.drawable.shishang,
+           };
+
+    private String[] iconName = {"头条", "社会", "国内",
+                                   "国际", "娱乐", "体育",
+                                  "军事", "科技", "财经","时尚"};
 
     private List<String> attentionList = new ArrayList<String>();
 
-    boolean  []attention = {false,false,false,false,false,false,false,false,false};
+    boolean  []attention = {false,false,false,false,false,false,false,false,false,false};
 
     private SimpleAdapter adapter;
 
@@ -78,7 +79,6 @@ public class WelcomeActivity extends AppCompatActivity {
                 databaseHelper.insertData(attentionList);
 
                 List<String>  list  =databaseHelper.getAttentionList();
-               //Toast.makeText(context,list.toString(),Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent();
                 intent.setClass(WelcomeActivity.this,MainActivity.class);
@@ -97,43 +97,53 @@ public class WelcomeActivity extends AppCompatActivity {
         adapter = new SimpleAdapter(this, getData(), R.layout.welcome_gridview_item, new String[]{"image", "text"}, new int[]{R.id.image, R.id.text});
         mGridView.setAdapter(adapter);
 
+         new Thread(new Runnable() {
+             @Override
+             public void run() {
+                 mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                     @Override
+                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                         //view是当前item的view，通过它可以获得该项中的各个组件。
+                         //i是当前item的ID。这个id根据你在适配器中的写法可以自己定义。
+                         //arg3是当前的item在listView中的相对位置！
 
-        mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //view是当前item的view，通过它可以获得该项中的各个组件。
-                //i是当前item的ID。这个id根据你在适配器中的写法可以自己定义。
-                //arg3是当前的item在listView中的相对位置！
+                         Button button = (Button) view.findViewById(R.id.id_welcome_button);
+                         if(!attention[i]){
+                             Toast.makeText(context,"已关注"+iconName[i],Toast.LENGTH_SHORT).show();
+                             attentionList.add(iconName[i]);
+                             attention[i] = true;
+                             button.setAlpha(0.8f);
+                             button.setBackgroundColor(getResources().getColor(R.color.button_press));
+                             button.setText("√");
+                             button.setTextColor(Color.BLUE);
+                         }else {
+                             Toast.makeText(context,"已取消关注"+iconName[i], Toast.LENGTH_SHORT).show();
+                             attentionList.remove(iconName[i]);
+                             attention[i] = false;
+                             button.setAlpha(1.0f);
+                             button.setBackgroundColor(getResources().getColor(R.color.button_normal));
+                             button.setText("+");
+                             button.setTextColor(Color.WHITE);
+                         }
+                     }
+                 });
+             }
+         }).start();
 
-                Button button = (Button) view.findViewById(R.id.id_welcome_button);
-                if(!attention[i]){
-                    Toast.makeText(context,"已关注"+iconName[i],Toast.LENGTH_SHORT).show();
-                    attentionList.add(iconName[i]);
-                    attention[i] = true;
-                    button.setAlpha(0.8f);
-                    button.setBackgroundColor(getResources().getColor(R.color.button_press));
-                    button.setText("√");
-                    button.setTextColor(Color.BLUE);
-                }else {
-                    Toast.makeText(context,"已取消关注"+iconName[i], Toast.LENGTH_SHORT).show();
-                    attentionList.remove(iconName[i]);
-                    attention[i] = false;
-                    button.setAlpha(1.0f);
-                    button.setBackgroundColor(getResources().getColor(R.color.button_normal));
-                    button.setText("+");
-                    button.setTextColor(Color.WHITE);
-                }
-            }
-        });
     }
 
     private List<Map<String, Object>> getData() {
-        for (int i = 0; i < icon.length; i++) {
-            Map<String, Object> map = new HashMap<String, Object>();
-            map.put("image", icon[i]);
-            map.put("text", iconName[i]);
-            dataList.add(map);
-        }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < icon.length; i++) {
+                    Map<String, Object> map = new HashMap<String, Object>();
+                    map.put("image", icon[i]);
+                    map.put("text", iconName[i]);
+                    dataList.add(map);
+                }
+            }
+        }).start();
         return dataList;
     }
 

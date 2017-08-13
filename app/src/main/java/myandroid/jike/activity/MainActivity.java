@@ -1,5 +1,8 @@
 package myandroid.jike.activity;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -132,5 +135,26 @@ public class MainActivity extends AppCompatActivity{
                 }
             }
         }, 500);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Dialog dialog = new AlertDialog.Builder(this)
+                .setTitle("信息提示")
+                .setMessage("再玩一会吧！")
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        return;
+                    }
+                })
+                .setNeutralButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                })
+                .create();
+        dialog.show();
     }
 }
