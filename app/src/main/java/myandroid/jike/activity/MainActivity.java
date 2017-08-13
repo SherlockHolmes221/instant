@@ -1,6 +1,5 @@
 package myandroid.jike.activity;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,9 +17,11 @@ import myandroid.jike.fragment.MineFragment;
 
 public class MainActivity extends AppCompatActivity{
 
-    private Context context;
+    //与viewPage对应的fragment的List
     private List<Fragment> mFragmentList = new ArrayList<Fragment>();
+
     private ViewPager mViewPager;
+
     private FragmentPagerAdapter mAdapter;
 
     @Override
@@ -31,14 +32,16 @@ public class MainActivity extends AppCompatActivity{
         initUI();
     }
 
-    //viewPage适配器
+    //UI界面的初始化
     private void initUI() {
 
-        mFragmentList.add(new MineFragment());
-        mFragmentList.add(new MineFragment());
-        mFragmentList.add(new MineFragment());
-        mFragmentList.add(new MineFragment());
+        //四个fragment
+        mFragmentList.add(new MineFragment());//推荐
+        mFragmentList.add(new MineFragment());//关注
+        mFragmentList.add(new MineFragment());//发现
+        mFragmentList.add(new MineFragment());//我的
 
+        //viewPage与adapter绑定
         mAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
 
             @Override

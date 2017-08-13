@@ -52,7 +52,7 @@ public class MineFragment extends Fragment{
 
         HashMap<String,Object> map1 = new HashMap<String,Object>();
         map1.put("ItemImage",R.drawable.list_item1);
-        map1.put("ItemText","我关注的主题");
+        map1.put("ItemText","取消和添加关注");
         listItem.add(map1);
 
         HashMap<String,Object> map2 = new HashMap<String,Object>();
