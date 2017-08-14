@@ -38,6 +38,8 @@ public class MainActivity extends AppCompatActivity{
     //UI界面的初始化
     private void initUI() {
 
+
+
         //四个fragment
         mFragmentList.add(new MineFragment());//推荐
         mFragmentList.add(new MineFragment());//关注
