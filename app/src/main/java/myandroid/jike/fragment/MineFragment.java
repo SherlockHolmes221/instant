@@ -4,12 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -18,18 +17,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import myandroid.jike.NewsResult;
 import myandroid.jike.R;
 import myandroid.jike.Sqlite.DatabaseHelper;
 import myandroid.jike.activity.ShowAttentionListActivity;
-
-import static myandroid.jike.utils.HttpUtils.sendMessage;
 
 
 public class MineFragment extends Fragment{
 
         private ListView mListView;
-        private ImageButton mImageButton;
+        private ImageView mImageView;
         private LinearLayout mLinearLayout;
         private List<String> attentionList = new ArrayList<>();
 
@@ -41,7 +37,7 @@ public class MineFragment extends Fragment{
         View view = inflater.inflate(R.layout.mine,container,false);
 
         mListView = (ListView) view.findViewById(R.id.id_mine_listView);
-        mImageButton = (ImageButton) view.findViewById(R.id.id_mine_setting);
+        mImageView= (ImageView) view.findViewById(R.id.id_mine_setting);
         mLinearLayout = (LinearLayout) view.findViewById(R.id.id_mine_login);
             databaseHelper = new DatabaseHelper(view.getContext());
         InitListView();
@@ -95,14 +91,6 @@ public class MineFragment extends Fragment{
                         startActivity(intent);
                         break;
                     case 1:
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-
-                                NewsResult newsResult = sendMessage("top");
-                                Log.e("TAG",newsResult.toString());
-                            }
-                        }).start();
                         break;
                     default:
                         break;

@@ -1,6 +1,9 @@
 package myandroid.jike.utils;
 
-import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -8,8 +11,11 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
-import myandroid.jike.NewsResult;
+import myandroid.jike.news.NewsBean;
+import myandroid.jike.news.NewsResult;
 
 /**
  * Created by quxia on 2017/7/1.
@@ -21,11 +27,35 @@ public class HttpUtils {
     //通过调用sendMessage返回NewsResult类型的信息
     public static NewsResult sendMessage(String msg){
         NewsResult newsResult = new NewsResult();
+
         try {
             String jsonRes = doGet(msg);
 
-            Gson gson = new Gson();
-            newsResult = gson.fromJson(jsonRes,NewsResult.class);
+            JsonParser parser = new JsonParser();
+            JsonObject jsonObj = parser.parse(jsonRes).getAsJsonObject();
+
+            newsResult  =JsonUtils.deserialize(jsonObj,NewsResult.class);
+
+            JsonElement jsonElementResult = jsonObj.get("result");
+            String s= jsonElementResult.toString();
+
+            JsonObject jsonObjectResult = parser.parse(s).getAsJsonObject();
+            JsonElement jsonElementStat = jsonObjectResult.get("stat");
+            newsResult.setStat(jsonElementStat.getAsInt());
+
+            JsonElement jsonElementData= jsonObjectResult.get("data");
+            JsonArray jsonArrayData = jsonElementData.getAsJsonArray();
+
+
+            List<NewsBean> newsBeens = new ArrayList<>();
+            for(int i = 0;i<jsonArrayData.size();i++){
+                JsonObject jo = jsonArrayData.get(i).getAsJsonObject();
+                NewsBean news = JsonUtils.deserialize(jo, NewsBean.class);
+                newsBeens.add(news);
+            }
+            newsResult.setNewsBeen(newsBeens);
+            //Log.e("TAG",newsResult.toString());
+            //Log.e("TAG",newsResult.getNewsBeen().get(0).getUrl());
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -76,6 +106,7 @@ public class HttpUtils {
                 }
             }
         }
+       // Log.e("TAG",result);
         return result;
     }
 

@@ -1,4 +1,4 @@
-package myandroid.jike;
+package myandroid.jike.news;
 
 /**
  * Created by quxia on 2017/8/14.
