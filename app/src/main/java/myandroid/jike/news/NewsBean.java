@@ -1,4 +1,4 @@
-package myandroid.jike;
+package myandroid.jike.news;
 
 /**
  * Created by quxia on 2017/8/14.
@@ -90,5 +90,18 @@ public class NewsBean {
         this.thumbnail_pic_s03 = thumbnail_pic_s03;
     }
 
-
+    @Override
+    public String toString() {
+        return "NewsBean{" +
+                "uniquekey='" + uniquekey + '\'' +
+                ", title='" + title + '\'' +
+                ", date='" + date + '\'' +
+                ", category='" + category + '\'' +
+                ", author_name='" + author_name + '\'' +
+                ", url='" + url + '\'' +
+                ", thumbnail_pic_s='" + thumbnail_pic_s + '\'' +
+                ", thumbnail_pic_s02='" + thumbnail_pic_s02 + '\'' +
+                ", thumbnail_pic_s03='" + thumbnail_pic_s03 + '\'' +
+                '}';
+    }
 }

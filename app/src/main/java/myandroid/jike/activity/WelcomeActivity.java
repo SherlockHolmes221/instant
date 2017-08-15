@@ -69,30 +69,31 @@ public class WelcomeActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
-
-            mButton = (Button) findViewById(R.id.id_welcome_enter);
-           mButton.setOnClickListener(new View.OnClickListener() {
-
+        new Thread(new Runnable() {
             @Override
-            public void onClick(View view) {
-                databaseHelper = new DatabaseHelper(context);
-                databaseHelper.insertData(attentionList);
+            public void run() {
+                mButton = (Button) findViewById(R.id.id_welcome_enter);
+                mButton.setOnClickListener(new View.OnClickListener() {
 
-                List<String>  list  =databaseHelper.getAttentionList();
+                    @Override
+                    public void onClick(View view) {
+                        databaseHelper = new DatabaseHelper(context);
+                        databaseHelper.insertData(attentionList);
 
-                Intent intent = new Intent();
-                intent.setClass(WelcomeActivity.this,MainActivity.class);
-                startActivity(intent);
+                        Intent intent = new Intent();
+                        intent.setClass(WelcomeActivity.this,MainActivity.class);
+                        startActivity(intent);
+                    }
+                });
             }
-        });
-
-        mGridView = (GridView) findViewById(R.id.id_welcome_gridView);
+        }).start();
 
         /*1.准备数据源
         2.新建适配器
         3.GridView加载适配器
         4.GridView配置事件监听器 (OnItemClickListener)  */
 
+        mGridView = (GridView) findViewById(R.id.id_welcome_gridView);
         dataList = new ArrayList<Map<String, Object>>();
         adapter = new SimpleAdapter(this, getData(), R.layout.welcome_gridview_item, new String[]{"image", "text"}, new int[]{R.id.image, R.id.text});
         mGridView.setAdapter(adapter);
