@@ -25,4 +25,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.0.1'
     compile project(path: ':navigationtabbar')
     compile files('libs/gson-2.2.3.jar')
+    compile 'com.github.bumptech.glide:glide:3.5.2'
+    compile 'com.android.support:support-v4:25.0.1'
 }

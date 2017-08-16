@@ -4,7 +4,15 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    <color name="primary">#F44336</color>
+    <color name="primary_dark">#D32F2F</color>
+    <color name="primary_light">#FFCDD2</color>
+    <color name="accent">#CDDC39</color>
+
     <color name="button_normal">#8381c1</color>
     <color name="button_press">#FFE2E1E1</color>
+
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#727272</color>
 
 </resources>

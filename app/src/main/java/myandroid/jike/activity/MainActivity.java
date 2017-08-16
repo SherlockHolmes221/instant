@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import myandroid.jike.R;
+import myandroid.jike.fragment.DiscoverFragment;
 import myandroid.jike.fragment.MineFragment;
 
 public class MainActivity extends AppCompatActivity{
@@ -38,12 +39,10 @@ public class MainActivity extends AppCompatActivity{
     //UI界面的初始化
     private void initUI() {
 
-
-
         //四个fragment
         mFragmentList.add(new MineFragment());//推荐
         mFragmentList.add(new MineFragment());//关注
-        mFragmentList.add(new MineFragment());//发现
+        mFragmentList.add(new DiscoverFragment());//发现
         mFragmentList.add(new MineFragment());//我的
 
         //viewPage与adapter绑定
