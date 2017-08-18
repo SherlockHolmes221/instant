@@ -34,6 +34,7 @@ public class MineFragment extends Fragment{
         @Nullable
         @Override
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.mine,container,false);
 
         mListView = (ListView) view.findViewById(R.id.id_mine_listView);

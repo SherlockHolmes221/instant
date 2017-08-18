@@ -16,17 +16,20 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import myandroid.jike.OnLoadNewsResultListener;
 import myandroid.jike.R;
 import myandroid.jike.adapter.NewsAdapter;
 import myandroid.jike.news.NewsBean;
-
+import myandroid.jike.news.NewsResult;
+import myandroid.jike.utils.NewsJsonUtils;
 
 
 /**
  * Created by quxia on 2017/8/15.
  */
-public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
+public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener,OnLoadNewsResultListener {
 
+    private final static String TAG = "DiscoverFragment";
     private SwipeRefreshLayout mSwipeRefreshWidget;
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -54,7 +57,9 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        mAdapter = new NewsAdapter(getActivity().getApplicationContext());
+        mAdapter = new NewsAdapter(getContext(),mNewsBeanList);
+        mAdapter.notifyDataSetChanged();
+
         mAdapter.setOnItemClickListener(new NewsAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -136,12 +141,34 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
         Snackbar.make(view, "加载数据失败!", Snackbar.LENGTH_SHORT).show();
     }
 
+    //页面的更新
     @Override
     public void onRefresh() {
-        pageIndex = 0;
+        showProgress();
         if(mNewsBeanList != null) {
             mNewsBeanList.clear();
         }
+        //更新mNewsBeanList
         String type  = "top";
+        NewsJsonUtils.getNews(type,this);
+        mAdapter.notifyDataSetChanged();
+        hideProgress();
+    }
+
+    //加载成功则添加到mNewsBeanList
+    @Override
+    public void onSuccess(NewsResult newsResult) {
+        addNews(newsResult.getNewsBeen());
+//        int size  =newsResult.getNewsBeen().size();
+//        for(int i = 0;i< size ;i++){
+//            this.mNewsBeanList.add(0,newsResult.getNewsBeen().get(i));
+//        }
+        Log.e(TAG,"onRefresh");
+    }
+
+    @Override
+    public void onFailure(String msg, Exception e) {
+        showLoadFailMsg();
+        Log.e(TAG,"failure");
     }
 }

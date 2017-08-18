@@ -23,10 +23,17 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_ITEM = 0;
     private static final int TYPE_FOOTER = 1;
 
+    private LayoutInflater mInflater;
       private List<NewsBean> mNewsBeanList  = new ArrayList<>();
       private Context mContext;
      private OnItemClickListener mOnItemClickListener;
      private boolean isShowFooter = true;
+
+    public NewsAdapter(Context context, List<NewsBean> newsBeanList) {
+        mInflater = LayoutInflater.from(context);
+        this.mContext = context;
+        this.mNewsBeanList = newsBeanList;
+    }
 
     @Override
     public int getItemViewType(int position) {
@@ -51,9 +58,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
 
-    public NewsAdapter(Context context) {
-        this.mContext = context;
-    }
+
 
     public void setmNewsBeanList(List<NewsBean> mNewsBeanList) {
         this.mNewsBeanList = mNewsBeanList;
