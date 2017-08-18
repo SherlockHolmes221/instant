@@ -10,7 +10,7 @@ import com.google.gson.JsonParser;
 import java.util.ArrayList;
 import java.util.List;
 
-import myandroid.jike.OnLoadNewsResultListener;
+import myandroid.jike.interfaces.OnLoadNewsResultListener;
 import myandroid.jike.news.NewsBean;
 import myandroid.jike.news.NewsResult;
 

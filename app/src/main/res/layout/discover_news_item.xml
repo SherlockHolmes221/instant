@@ -13,8 +13,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="12dp">
+        android:orientation="vertical"
+        android:padding="12dp"
+        android:weightSum="1">
 
 
         <LinearLayout
@@ -41,15 +42,16 @@
                 android:layout_marginTop="6dp"
                 android:maxLines="2"
                 android:textColor="@color/secondary_text"
-                android:textSize="2sp" />
+                android:textSize="10sp" />
         </LinearLayout>
 
 
         <ImageView
+            android:paddingTop="5dp"
             android:src="@drawable/list_item1"
             android:id="@+id/id_discover_news_Image"
-            android:layout_width="86dp"
-            android:layout_height="60dp"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
             android:scaleType="centerCrop" />
 
     </LinearLayout>

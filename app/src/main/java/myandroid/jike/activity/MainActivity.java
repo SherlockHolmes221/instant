@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity{
         );
 
         navigationTabBar.setModels(models);
-        navigationTabBar.setViewPager(mViewPager, 3);
+        navigationTabBar.setViewPager(mViewPager,0);
         navigationTabBar.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(final int position, final float positionOffset, final int positionOffsetPixels) {
@@ -153,6 +153,7 @@ public class MainActivity extends AppCompatActivity{
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         finish();
+                        System.exit(0);
                     }
                 })
                 .create();

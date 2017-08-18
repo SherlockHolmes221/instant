@@ -1,4 +1,4 @@
-package myandroid.jike;
+package myandroid.jike.interfaces;
 
 import myandroid.jike.news.NewsResult;
 

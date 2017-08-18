@@ -57,9 +57,6 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public void onItemClick(View view, int position);
     }
 
-
-
-
     public void setmNewsBeanList(List<NewsBean> mNewsBeanList) {
         this.mNewsBeanList = mNewsBeanList;
         this.notifyDataSetChanged();
@@ -98,8 +95,14 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 return;
             }
             ((ItemViewHolder) holder).mTitle.setText(news.getTitle());
-            ((ItemViewHolder) holder).mDate.setText(news.getDate());
-            ImageLoaderUtils.display(mContext, ((ItemViewHolder) holder).mNewsImg, news.getThumbnail_pic_s());
+
+            String s = news.getAuthor_name()+"  "+news.getDate();
+            ((ItemViewHolder) holder).mDate.setText(s);
+
+//            Uri uri = Uri.parse(news.getThumbnail_pic_s());
+//            ((ItemViewHolder) holder).mNewsImg.setImageURI(uri);
+
+          ImageLoaderUtils.display(mContext,((ItemViewHolder) holder).mNewsImg, news.getThumbnail_pic_s());
         }
     }
 

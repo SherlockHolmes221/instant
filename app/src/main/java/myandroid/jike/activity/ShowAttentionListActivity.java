@@ -1,7 +1,7 @@
 package myandroid.jike.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -18,7 +18,7 @@ import myandroid.jike.view.FlowLayout;
  */
 
 //流式布局显示关注与不关注的内容,实现点击关注或者点击取消关注
-public class ShowAttentionListActivity extends Activity {
+public class ShowAttentionListActivity extends AppCompatActivity {
 
     private FlowLayout mAttentionFlowLayout; //关注关键词的布局
     private FlowLayout mUnAttentionFlowLayout;//不关注关键词的布局

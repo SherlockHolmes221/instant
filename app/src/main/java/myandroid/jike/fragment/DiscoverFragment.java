@@ -1,8 +1,12 @@
 package myandroid.jike.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -16,9 +20,10 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import myandroid.jike.OnLoadNewsResultListener;
 import myandroid.jike.R;
+import myandroid.jike.activity.NewsDetailActivity;
 import myandroid.jike.adapter.NewsAdapter;
+import myandroid.jike.interfaces.OnLoadNewsResultListener;
 import myandroid.jike.news.NewsBean;
 import myandroid.jike.news.NewsResult;
 import myandroid.jike.utils.NewsJsonUtils;
@@ -58,7 +63,9 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
         mAdapter = new NewsAdapter(getContext(),mNewsBeanList);
-        mAdapter.notifyDataSetChanged();
+        mRecyclerView.setAdapter(mAdapter);
+        //加载数据
+        onRefresh();
 
         mAdapter.setOnItemClickListener(new NewsAdapter.OnItemClickListener() {
             @Override
@@ -66,20 +73,24 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
                    if(mNewsBeanList.size() <= 0){
                        return;
                    }
-//                NewsBean news = mAdapter.getItem(position);
-//                Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
-//                intent.putExtra("news", news);
-//
-//                View transitionView = view.findViewById(R.id.ivNews);
-//                ActivityOptionsCompat options =
-//                        ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
-//                                transitionView, getString(R.string.transition_news_img));
-//
-//                ActivityCompat.startActivity(getActivity(), intent, options.toBundle());
+                NewsBean news = mAdapter.getItem(position);
+                Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("title", news.getTitle());
+                bundle.putString("url", news.getUrl());
+                bundle.putString("image1",news.getThumbnail_pic_s());
+                bundle.putString("image2",news.getThumbnail_pic_s02());
+                bundle.putString("image3",news.getThumbnail_pic_s03());
+                intent.putExtra("newsInfo",bundle);
+
+                View transitionView = view.findViewById(R.id.id_discover_news_Image);
+                ActivityOptionsCompat options =
+                        ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
+                                transitionView,"transition_news_img");
+                ActivityCompat.startActivity(getActivity(), intent, options.toBundle());
             }
         });
 
-        mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             private int lastVisibleItem;
             @Override
@@ -100,9 +111,6 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
                 //lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();
             }
         });
-
-        //加载数据
-        onRefresh();
         return view;
     }
 
@@ -145,24 +153,28 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
     @Override
     public void onRefresh() {
         showProgress();
-        if(mNewsBeanList != null) {
-            mNewsBeanList.clear();
-        }
         //更新mNewsBeanList
         String type  = "top";
         NewsJsonUtils.getNews(type,this);
         mAdapter.notifyDataSetChanged();
-        hideProgress();
+        new Handler().postDelayed(new Runnable(){
+            public void run() {
+                hideProgress();
+            }
+        }, 3000);
+//        if(mNewsBeanList != null) {
+//            mNewsBeanList.clear();
+//        }
     }
 
     //加载成功则添加到mNewsBeanList
     @Override
     public void onSuccess(NewsResult newsResult) {
-        addNews(newsResult.getNewsBeen());
-//        int size  =newsResult.getNewsBeen().size();
-//        for(int i = 0;i< size ;i++){
-//            this.mNewsBeanList.add(0,newsResult.getNewsBeen().get(i));
-//        }
+       //addNews(newsResult.getNewsBeen());
+        int size  =newsResult.getNewsBeen().size();
+        for(int i = 0;i< size ;i++){
+            this.mNewsBeanList.add(0,newsResult.getNewsBeen().get(i));
+        }
         Log.e(TAG,"onRefresh");
     }
 

@@ -66,7 +66,9 @@ public class WelcomeActivity extends AppCompatActivity {
         }else{
             Intent intent = new Intent();
             intent.setClass(this,MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
+            finish();
         }
 
         new Thread(new Runnable() {
@@ -92,11 +94,18 @@ public class WelcomeActivity extends AppCompatActivity {
         2.新建适配器
         3.GridView加载适配器
         4.GridView配置事件监听器 (OnItemClickListener)  */
-
         mGridView = (GridView) findViewById(R.id.id_welcome_gridView);
         dataList = new ArrayList<Map<String, Object>>();
-        adapter = new SimpleAdapter(this, getData(), R.layout.welcome_gridview_item, new String[]{"image", "text"}, new int[]{R.id.image, R.id.text});
-        mGridView.setAdapter(adapter);
+        adapter = new SimpleAdapter(this, getData(), R.layout.welcome_gridview_item,
+                new String[]{"image", "text"}, new int[]{R.id.image, R.id.text});
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                mGridView.setAdapter(adapter);
+
+            }
+        }).start();
 
          new Thread(new Runnable() {
              @Override
