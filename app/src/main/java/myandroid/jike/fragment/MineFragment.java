@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import myandroid.jike.R;
-import myandroid.jike.Sqlite.DatabaseHelper;
+import myandroid.jike.sqlite.DatabaseHelper;
 import myandroid.jike.activity.ShowAttentionListActivity;
 
 

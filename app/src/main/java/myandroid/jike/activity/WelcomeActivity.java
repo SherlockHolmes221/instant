@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 import myandroid.jike.R;
-import myandroid.jike.Sqlite.DatabaseHelper;
+import myandroid.jike.sqlite.DatabaseHelper;
 
 //欢迎界面，只在开始时出现，用户选择关注的内容
 public class WelcomeActivity extends AppCompatActivity {

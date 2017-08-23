@@ -10,7 +10,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".activity.WelcomeActivity"
+        <activity android:name=".activity.SplashActivity"
                    android:clearTaskOnLaunch="true"
                    android:finishOnTaskLaunch="true">
             <intent-filter>
@@ -21,6 +21,8 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".activity.WelcomeActivity"/>
+        <activity android:name=".activity.Recommend"/>
         <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.ShowAttentionListActivity"/>
         <activity android:name=".activity.NewsDetailActivity"/>

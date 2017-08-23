@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import myandroid.jike.R;
-import myandroid.jike.Sqlite.DatabaseHelper;
+import myandroid.jike.sqlite.DatabaseHelper;
 import myandroid.jike.view.FlowLayout;
 
 /**

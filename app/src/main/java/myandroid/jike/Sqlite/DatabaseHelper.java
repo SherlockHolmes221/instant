@@ -1,4 +1,4 @@
-package myandroid.jike.Sqlite;
+package myandroid.jike.sqlite;
 
 import android.content.ContentValues;
 import android.content.Context;
