@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="myandroid.jike.activity.Recommend">
+    tools:context="myandroid.jike.fragment.Recommend">
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/recommend_srl"
