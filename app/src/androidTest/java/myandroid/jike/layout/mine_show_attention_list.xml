@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#E5E5F5"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:paddingTop="16dp"
+            android:text="点击取消关注"
+            android:textSize="20dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <myandroid.jike.view.FlowLayout
+            android:layout_marginTop="16dp"
+            android:padding="20dp"
+            android:id="@+id/id_mine_showAttentionListFlowLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </myandroid.jike.view.FlowLayout>
+
+        <TextView
+            android:layout_marginTop="16dp"
+            android:text="点击添加关注"
+            android:textSize="20dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <myandroid.jike.view.FlowLayout
+            android:layout_marginTop="16dp"
+            android:padding="20dp"
+            android:id="@+id/id_mine_showUnAttentionListFlowLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </myandroid.jike.view.FlowLayout>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

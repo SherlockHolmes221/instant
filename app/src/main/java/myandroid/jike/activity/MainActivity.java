@@ -3,12 +3,14 @@ package myandroid.jike.activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.gigamole.navigationtabbar.ntb.NavigationTabBar;
 
@@ -16,8 +18,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import myandroid.jike.R;
+import myandroid.jike.fragment.AttentionFragment;
 import myandroid.jike.fragment.DiscoverFragment;
 import myandroid.jike.fragment.MineFragment;
+import myandroid.jike.fragment.RecommendFragment;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -40,8 +44,8 @@ public class MainActivity extends AppCompatActivity{
     private void initUI() {
 
         //四个fragment
-        mFragmentList.add(new MineFragment());//推荐
-        mFragmentList.add(new MineFragment());//关注
+        mFragmentList.add(new RecommendFragment());//推荐
+        mFragmentList.add(new AttentionFragment());//关注
         mFragmentList.add(new DiscoverFragment());//发现
         mFragmentList.add(new MineFragment());//我的
 
@@ -75,6 +79,7 @@ public class MainActivity extends AppCompatActivity{
                         getResources().getDrawable(R.drawable.ic_first),
                         Color.parseColor(colors[0]))
                         .selectedIcon(getResources().getDrawable(R.drawable.ic_sixth))
+                        .badgeTitle("recommend")
                         .title("推荐")
                         .build()
         );
@@ -83,6 +88,7 @@ public class MainActivity extends AppCompatActivity{
                         getResources().getDrawable(R.drawable.ic_second),
                         Color.parseColor(colors[1]))
                        .selectedIcon(getResources().getDrawable(R.drawable.ic_eighth))
+                        .badgeTitle("attention")
                         .title("关注")
                         .build()
         );
@@ -91,6 +97,7 @@ public class MainActivity extends AppCompatActivity{
                         getResources().getDrawable(R.drawable.ic_third),
                         Color.parseColor(colors[2]))
                         .selectedIcon(getResources().getDrawable(R.drawable.ic_seventh))
+                        .badgeTitle("discover")
                         .title("发现")
                         .build()
         );
@@ -99,12 +106,13 @@ public class MainActivity extends AppCompatActivity{
                         getResources().getDrawable(R.drawable.ic_fourth),
                         Color.parseColor(colors[3]))
                        .selectedIcon(getResources().getDrawable(R.drawable.ic_eighth))
+                        .badgeTitle("mine")
                         .title("我的")
                         .build()
         );
 
         navigationTabBar.setModels(models);
-        navigationTabBar.setViewPager(mViewPager,0);
+        navigationTabBar.setViewPager(mViewPager,3);
         navigationTabBar.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(final int position, final float positionOffset, final int positionOffsetPixels) {
@@ -136,6 +144,25 @@ public class MainActivity extends AppCompatActivity{
                 }
             }
         }, 500);
+    }
+
+    public void JumpToActivity(View view){
+        int itemId = view.getId();
+        switch (itemId) {
+            case R.id.id_mine_attention:
+                Intent intent = new Intent();
+                intent.setClass(this, ShowAttentionListActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.id_mine_collection:;
+                break;
+            case R.id.id_mine_createTheme:
+                break;
+            case R.id.id_mine_help:
+                break;
+            case R.id.id_mine_inform:
+                break;
+        }
     }
 
     @Override

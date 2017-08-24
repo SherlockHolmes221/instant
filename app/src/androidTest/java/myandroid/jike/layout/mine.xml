@@ -19,6 +19,7 @@
         android:text="我的"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
 </RelativeLayout>
 
 
@@ -88,19 +89,17 @@
                     android:layout_height="30dp"
                     android:layout_centerVertical="true"
                     android:src="@drawable/ic_first"/>
-
                 <TextView
-                    android:layout_marginLeft="100dp"
+                    android:layout_marginLeft="25dp"
                     android:layout_marginStart="100dp"
                     android:layout_height="wrap_content"
                     android:layout_width="fill_parent"
                     android:text="添加或取消关注"
                     android:layout_centerVertical="true"
-
                     android:background="@color/background"/>
                 <ImageView
-                    android:layout_alignParentRight="true"
                     android:layout_marginRight="50dp"
+                    android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="50dp"
@@ -132,20 +131,17 @@
                     android:layout_height="30dp"
                     android:layout_centerVertical="true"
                     android:src="@drawable/ic_sixth"/>
-
                 <TextView
-                    android:layout_marginLeft="100dp"
+                    android:layout_marginLeft="25dp"
                     android:layout_marginStart="100dp"
                     android:layout_centerVertical="true"
                     android:layout_height="wrap_content"
                     android:layout_width="fill_parent"
                     android:text="我的收藏"
-
-
                     android:background="@color/background"/>
                 <ImageView
-                    android:layout_alignParentRight="true"
                     android:layout_marginRight="50dp"
+                    android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="50dp"
@@ -163,7 +159,6 @@
             android:layout_height="wrap_content"
             app:cardCornerRadius="4dp"
             app:cardElevation="1dp"
-
             app:cardBackgroundColor="@color/background">
             <RelativeLayout
                 android:padding="10dp"
@@ -173,12 +168,12 @@
                 android:layout_height="wrap_content">
                 <ImageView
                     android:layout_marginLeft="25dp"
+                    android:layout_alignParentLeft="true"
                     android:layout_marginStart="25dp"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_centerVertical="true"
                     android:src="@drawable/ic_third"/>
-
                 <TextView
                     android:layout_marginLeft="100dp"
                     android:layout_marginStart="100dp"
@@ -188,8 +183,8 @@
                     android:layout_centerVertical="true"
                     android:background="@color/background"/>
                 <ImageView
-                    android:layout_alignParentRight="true"
                     android:layout_marginRight="50dp"
+                    android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="50dp"
@@ -221,19 +216,17 @@
                     android:layout_height="30dp"
                     android:layout_centerVertical="true"
                     android:src="@drawable/ic_fourth"/>
-
                 <TextView
-                    android:layout_marginLeft="100dp"
+                    android:layout_marginLeft="25dp"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="100dp"
                     android:layout_height="wrap_content"
                     android:layout_width="fill_parent"
                     android:text="小秘书"
-
                     android:background="@color/background"/>
                 <ImageView
-                    android:layout_alignParentRight="true"
                     android:layout_marginRight="50dp"
+                    android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="50dp"
@@ -246,7 +239,8 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="5dp"></LinearLayout>
+            android:layout_height="5dp">
+        </LinearLayout>
 
         <android.support.v7.widget.CardView
             android:layout_marginTop="5dp"
@@ -270,9 +264,8 @@
                     android:layout_height="30dp"
                     android:layout_centerVertical="true"
                     android:src="@drawable/ic_eighth"/>
-
                 <TextView
-                    android:layout_marginLeft="100dp"
+                    android:layout_marginLeft="25dp"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="100dp"
                     android:layout_height="wrap_content"
@@ -280,8 +273,8 @@
                     android:text="创建主题"
                     android:background="@color/background"/>
                 <ImageView
-                    android:layout_alignParentRight="true"
                     android:layout_marginRight="50dp"
+                    android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="50dp"
@@ -291,6 +284,8 @@
                     />
             </RelativeLayout>
         </android.support.v7.widget.CardView>
+
     </LinearLayout>
+
 
 </LinearLayout>
