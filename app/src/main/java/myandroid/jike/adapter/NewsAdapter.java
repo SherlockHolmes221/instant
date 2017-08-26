@@ -38,12 +38,12 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public int getItemViewType(int position) {
         // 最后一个item设置为footerView
-        if(!isShowFooter) {//不是最后一个图片
+        if(!isShowFooter) {//不是最后
             return TYPE_ITEM;
         }
-        if (position + 1 == getItemCount()) {//最后一种图片
+        if (position + 1 == getItemCount()) {//最后
             return TYPE_FOOTER;
-        } else {
+        } else {//不是最后
             return TYPE_ITEM;
         }
     }
@@ -75,21 +75,17 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if(viewType == TYPE_ITEM) {
             View v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.discover_news_item, parent, false);
-            ItemViewHolder vh = new ItemViewHolder(v);
-            return vh;
-        } else {
-            View view = LayoutInflater.from(parent.getContext()).inflate(
-                    R.layout.discover_footer, null);
-            view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT));
+            return  new ItemViewHolder(v);
+        } else {//加载下拉刷新页面
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.discover_footer, parent, false);
             return new FooterViewHolder(view);
         }
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if(holder instanceof RecyclerView.ViewHolder) {
-
+        if(holder instanceof ItemViewHolder){
             NewsBean news = mNewsBeanList.get(position);
             if(news == null) {
                 return;
@@ -99,11 +95,11 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             String s = news.getAuthor_name()+"  "+news.getDate();
             ((ItemViewHolder) holder).mDate.setText(s);
 
-//            Uri uri = Uri.parse(news.getThumbnail_pic_s());
-//            ((ItemViewHolder) holder).mNewsImg.setImageURI(uri);
-
-          ImageLoaderUtils.display(mContext,((ItemViewHolder) holder).mNewsImg, news.getThumbnail_pic_s());
+            ImageLoaderUtils.display(mContext,((ItemViewHolder) holder).mNewsImg, news.getThumbnail_pic_s());
+        }else{
+            ((FooterViewHolder) holder).mTitle.setText("正在加载...");
         }
+
     }
 
     @Override
@@ -122,9 +118,10 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     public class FooterViewHolder extends RecyclerView.ViewHolder{
-
+        public TextView mTitle;
         public FooterViewHolder(View itemView) {
             super(itemView);
+            mTitle = (TextView) itemView.findViewById(R.id.id_discover_more_data_msg);
         }
     }
 

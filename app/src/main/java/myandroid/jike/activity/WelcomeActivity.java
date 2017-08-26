@@ -119,7 +119,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
                          Button button = (Button) view.findViewById(R.id.id_welcome_button);
                          if(!attention[i]){
-                             Toast.makeText(context,"已关注"+iconName[i],Toast.LENGTH_SHORT).show();
+                            // Toast.makeText(context,"已关注"+iconName[i],Toast.LENGTH_SHORT).show();
                              attentionList.add(iconName[i]);
                              attention[i] = true;
                              button.setAlpha(0.8f);
