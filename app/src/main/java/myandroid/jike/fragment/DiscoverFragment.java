@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import myandroid.jike.R;
@@ -42,7 +43,7 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
     private NewsAdapter mAdapter;
-    private List<NewsBean> mNewsBeanList = new ArrayList<>();
+    private List<NewsBean> mNewsBeanList= new ArrayList<>();
     private int pageIndex;
 
     private static int index = 1;
@@ -159,7 +160,7 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
     public void addNews(List<NewsBean> newsList) {
         mAdapter.setShowFooter(true);
         if(mNewsBeanList == null) {
-            mNewsBeanList = new ArrayList<NewsBean>();
+            mNewsBeanList = new LinkedList<>();
         }
         mNewsBeanList.addAll(newsList);
         if(pageIndex == 0) {
@@ -239,12 +240,12 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
     @Override
     public void onSuccess(NewsResult newsResult) {
        //addNews(newsResult.getNewsBeen());
-        int size  =newsResult.getNewsBeen().size();
-        for(int i = 0;i< size ;i++){
-            this.mNewsBeanList.add(0,newsResult.getNewsBeen().get(i));
-        }
+//        int size  =newsResult.getNewsBeen().size();
+//        for(int i = 0;i< size ;i++){
+//            this.mNewsBeanList.add(0,newsResult.getNewsBeen().get(i));
+//        }
         //Log.e(TAG,"onRefresh");
-        mAdapter.setmNewsBeanList(mNewsBeanList);
+        mAdapter.appendNewsBeanList(newsResult.getNewsBeen());
         mAdapter.notifyDataSetChanged();
         mRecyclerView.requestLayout();
     }

@@ -51,13 +51,14 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
             <ProgressBar
                 android:background="#ffffff"
                 android:id="@+id/id_discover_news_detail_progress"
-                style="?android:attr/progressBarStyleInverse"
+                style="?android:attr/progressBarStyleSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"/>
