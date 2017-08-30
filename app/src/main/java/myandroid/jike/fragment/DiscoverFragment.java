@@ -1,5 +1,6 @@
 package myandroid.jike.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,12 +17,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import myandroid.jike.AppConfig;
 import myandroid.jike.R;
 import myandroid.jike.activity.NewsDetailActivity;
 import myandroid.jike.adapter.NewsAdapter;
@@ -36,9 +40,12 @@ import myandroid.jike.view.AutoSwipeRefreshLayout;
 /**
  * Created by quxia on 2017/8/15.
  */
-public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener,OnLoadNewsResultListener {
+public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener,OnLoadNewsResultListener{
 
     private final static String TAG = "DiscoverFragment";
+
+    private LinearLayout layout;
+    private TextView text;
     private AutoSwipeRefreshLayout mSwipeRefreshWidget;
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -50,17 +57,26 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     private DatabaseHelper databaseHelper;
     private List<String> attentionList = new ArrayList<>();
+    private Boolean isNight = false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.discover, null);
+
+        layout = (LinearLayout) view.findViewById(R.id.id_discover_layout);
+        text  = (TextView) view.findViewById(R.id.id_discover_text);
 
         mSwipeRefreshWidget = (AutoSwipeRefreshLayout) view.findViewById(R.id.id_discover_swipe_refresh_widget);
         mSwipeRefreshWidget.setColorSchemeResources(R.color.primary,
@@ -146,6 +162,12 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
         //加载数据
         mSwipeRefreshWidget.autoRefresh();
         mAdapter.notifyDataSetChanged();
+
+        AppConfig appConfig = new AppConfig(getContext());
+        isNight = appConfig.getNightModeSwitch();
+        Log.e("tag", String.valueOf(isNight));
+        setBackground(isNight);
+
         return view;
     }
 
@@ -255,4 +277,17 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
         showLoadFailMsg();
         Log.e(TAG,"failure");
     }
+
+    private void setBackground(Boolean isNight) {
+        if(isNight){
+           layout.setBackgroundColor(getResources().getColor(R.color.bg_night));
+           text.setTextColor(getResources().getColor(R.color.text_night));
+        }
+       else{
+           layout.setBackgroundColor(getResources().getColor(R.color.background));
+         text.setTextColor(getResources().getColor(R.color.primary_text));}
+       }
+
+
 }
+

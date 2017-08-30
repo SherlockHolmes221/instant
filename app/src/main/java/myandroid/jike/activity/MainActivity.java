@@ -22,7 +22,7 @@ import myandroid.jike.fragment.DiscoverFragment;
 import myandroid.jike.fragment.MineFragment;
 import myandroid.jike.fragment.RecommendFragment;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
 
     //与viewPage对应的fragment的List
     private List<Fragment> mFragmentList = new ArrayList<Fragment>();
@@ -37,6 +37,8 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
         mViewPager = (ViewPager) findViewById(R.id.id_viewPage);
         initUI();
+
+
     }
 
     //UI界面的初始化
@@ -48,24 +50,22 @@ public class MainActivity extends AppCompatActivity{
         mFragmentList.add(new DiscoverFragment());//发现
         mFragmentList.add(new MineFragment());//我的
 
+
         //viewPage与adapter绑定
         mAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
 
             @Override
-            public int getCount()
-            {
+            public int getCount() {
                 return mFragmentList.size();
             }
 
             @Override
-            public Fragment getItem(int position)
-            {
+            public Fragment getItem(int position) {
                 return mFragmentList.get(position);
             }
         };
 
         mViewPager.setAdapter(mAdapter);
-
 
 
         //底部导航栏的实现
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity{
                 new NavigationTabBar.Model.Builder(
                         getResources().getDrawable(R.drawable.ic_second),
                         Color.parseColor(colors[1]))
-                       .selectedIcon(getResources().getDrawable(R.drawable.ic_eighth))
+                        .selectedIcon(getResources().getDrawable(R.drawable.ic_eighth))
                         .badgeTitle("attention")
                         .title("关注")
                         .build()
@@ -104,14 +104,14 @@ public class MainActivity extends AppCompatActivity{
                 new NavigationTabBar.Model.Builder(
                         getResources().getDrawable(R.drawable.ic_fourth),
                         Color.parseColor(colors[3]))
-                       .selectedIcon(getResources().getDrawable(R.drawable.ic_eighth))
+                        .selectedIcon(getResources().getDrawable(R.drawable.ic_eighth))
                         .badgeTitle("mine")
                         .title("我的")
                         .build()
         );
 
         navigationTabBar.setModels(models);
-        navigationTabBar.setViewPager(mViewPager,2);
+        navigationTabBar.setViewPager(mViewPager, 2);
         navigationTabBar.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(final int position, final float positionOffset, final int positionOffsetPixels) {
@@ -145,7 +145,7 @@ public class MainActivity extends AppCompatActivity{
         }, 500);
     }
 
-    public void JumpToActivity(View view){
+    public void JumpToActivity(View view) {
         int itemId = view.getId();
         switch (itemId) {
             case R.id.id_mine_attention:
@@ -153,7 +153,8 @@ public class MainActivity extends AppCompatActivity{
                 intent.setClass(this, ShowAttentionListActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.id_mine_collection:;
+            case R.id.id_mine_collection:
+                ;
                 break;
             case R.id.id_mine_createTheme:
                 break;
@@ -168,8 +169,8 @@ public class MainActivity extends AppCompatActivity{
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){
-            if((System.currentTimeMillis()-exitTime) > 2000){
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if ((System.currentTimeMillis() - exitTime) > 2000) {
                 Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
                 exitTime = System.currentTimeMillis();
             } else {
@@ -180,5 +181,4 @@ public class MainActivity extends AppCompatActivity{
         }
         return super.onKeyDown(keyCode, event);
     }
-
 }

@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import myandroid.jike.AppConfig;
 import myandroid.jike.R;
 import myandroid.jike.sqlite.DatabaseHelper;
 
@@ -55,14 +56,9 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome);
-
-        preferences = getSharedPreferences("WelcomeActivity", Context.MODE_PRIVATE);
-        //判断是不是首次登录，
-        if (preferences.getBoolean("firstStart", true)) {
-            editor = preferences.edit();
-            //将登录标志位设置为false，下次登录时不在显示首次登录界面
-            editor.putBoolean("firstStart", false);
-            editor.apply();
+        AppConfig appConfig = new AppConfig(this);
+        if(appConfig.isFirst()){
+            appConfig.setIsFirst(false);
         }else{
             Intent intent = new Intent();
             intent.setClass(this,MainActivity.class);
