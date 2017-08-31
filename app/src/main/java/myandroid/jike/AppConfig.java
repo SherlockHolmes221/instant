@@ -13,8 +13,9 @@ public class AppConfig {
 
     private SharedPreferences innerConfig;
 
-    private static final String KEY_FIRST="WelcomeActivity";
-    private static final String KEY_NIGHT_MODE_SWITCH="night_mode_switch";
+    public static final String KEY_PASSWORD="password";
+    public static final String KEY_FIRST="WelcomeActivity";
+    public static final String KEY_NIGHT_MODE_SWITCH="night_mode_switch";
 
 
     public AppConfig(final Context context) {
@@ -31,6 +32,18 @@ public class AppConfig {
         editor.putBoolean(KEY_FIRST, isFirst);
         editor.commit();
     }
+
+    //是否设置了手势密码
+    public String isSetPassword(){
+        return innerConfig.getString(KEY_PASSWORD, " ");
+    }
+
+    public void setIsSetPassword(String password) {
+        Editor editor = innerConfig.edit();
+        editor.putString(KEY_PASSWORD, password);
+        editor.commit();
+    }
+
 
     //夜间模式
     public boolean getNightModeSwitch() {

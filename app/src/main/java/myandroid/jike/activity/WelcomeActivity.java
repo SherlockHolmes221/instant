@@ -56,16 +56,35 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome);
+
         AppConfig appConfig = new AppConfig(this);
+        String password = appConfig.isSetPassword();
+
         if(appConfig.isFirst()){
             appConfig.setIsFirst(false);
-        }else{
             Intent intent = new Intent();
-            intent.setClass(this,MainActivity.class);
+            intent.setClass(this,SetLockActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             finish();
+        }else{
+            if(password.equals(" ")){     //未设置手势密码
+                Intent intent = new Intent();
+                intent.setClass(this,SetLockActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+            }
+            else{                       //已经设置手势密码
+                Intent intent = new Intent();
+                intent.setClass(this,UnlockActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+            }
+
         }
+
 
         new Thread(new Runnable() {
             @Override

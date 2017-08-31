@@ -1,6 +1,5 @@
 package myandroid.jike.fragment;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -65,8 +64,9 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    public void onResume() {
+        super.onResume();
+        setBackground(isNight);
     }
 
     @Nullable
