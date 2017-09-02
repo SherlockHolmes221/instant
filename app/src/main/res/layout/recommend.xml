@@ -8,23 +8,27 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="myandroid.jike.fragment.Recommend">
+    tools:context="myandroid.jike.fragment.RecommendFragment">
 
     <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/recommend_srl"
+        android:id="@+id/recommend_swipeRefresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_marginRight="18dp">
 
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/recommend_lv">
-        </ListView>
+    <ListView
+        android:id="@+id/recommend_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/recommend_swipeRefresh_layout"
+        android:layout_alignEnd="@+id/recommend_swipeRefresh_layout"
+        android:layout_marginRight="142dp"
+        android:layout_marginEnd="142dp" />
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+</android.support.v4.widget.SwipeRefreshLayout>
 
 
 </RelativeLayout>
