@@ -1,8 +1,5 @@
 package myandroid.jike.activity;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -10,7 +7,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import com.gigamole.navigationtabbar.ntb.NavigationTabBar;
 
@@ -23,7 +22,7 @@ import myandroid.jike.fragment.DiscoverFragment;
 import myandroid.jike.fragment.MineFragment;
 import myandroid.jike.fragment.RecommendFragment;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
 
     //与viewPage对应的fragment的List
     private List<Fragment> mFragmentList = new ArrayList<Fragment>();
@@ -38,6 +37,8 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
         mViewPager = (ViewPager) findViewById(R.id.id_viewPage);
         initUI();
+
+
     }
 
     //UI界面的初始化
@@ -49,24 +50,22 @@ public class MainActivity extends AppCompatActivity{
         mFragmentList.add(new DiscoverFragment());//发现
         mFragmentList.add(new MineFragment());//我的
 
+
         //viewPage与adapter绑定
         mAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
 
             @Override
-            public int getCount()
-            {
+            public int getCount() {
                 return mFragmentList.size();
             }
 
             @Override
-            public Fragment getItem(int position)
-            {
+            public Fragment getItem(int position) {
                 return mFragmentList.get(position);
             }
         };
 
         mViewPager.setAdapter(mAdapter);
-
 
 
         //底部导航栏的实现
@@ -87,7 +86,7 @@ public class MainActivity extends AppCompatActivity{
                 new NavigationTabBar.Model.Builder(
                         getResources().getDrawable(R.drawable.ic_second),
                         Color.parseColor(colors[1]))
-                       .selectedIcon(getResources().getDrawable(R.drawable.ic_eighth))
+                        .selectedIcon(getResources().getDrawable(R.drawable.ic_eighth))
                         .badgeTitle("attention")
                         .title("关注")
                         .build()
@@ -105,14 +104,14 @@ public class MainActivity extends AppCompatActivity{
                 new NavigationTabBar.Model.Builder(
                         getResources().getDrawable(R.drawable.ic_fourth),
                         Color.parseColor(colors[3]))
-                       .selectedIcon(getResources().getDrawable(R.drawable.ic_eighth))
+                        .selectedIcon(getResources().getDrawable(R.drawable.ic_eighth))
                         .badgeTitle("mine")
                         .title("我的")
                         .build()
         );
 
         navigationTabBar.setModels(models);
-        navigationTabBar.setViewPager(mViewPager,3);
+        navigationTabBar.setViewPager(mViewPager, 2);
         navigationTabBar.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(final int position, final float positionOffset, final int positionOffsetPixels) {
@@ -146,7 +145,7 @@ public class MainActivity extends AppCompatActivity{
         }, 500);
     }
 
-    public void JumpToActivity(View view){
+    public void JumpToActivity(View view) {
         int itemId = view.getId();
         switch (itemId) {
             case R.id.id_mine_attention:
@@ -154,7 +153,8 @@ public class MainActivity extends AppCompatActivity{
                 intent.setClass(this, ShowAttentionListActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.id_mine_collection:;
+            case R.id.id_mine_collection:
+                ;
                 break;
             case R.id.id_mine_createTheme:
                 break;
@@ -165,25 +165,20 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
+    private long exitTime = 0;
+
     @Override
-    public void onBackPressed() {
-        Dialog dialog = new AlertDialog.Builder(this)
-                .setTitle("信息提示")
-                .setMessage("再玩一会吧！")
-                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        return;
-                    }
-                })
-                .setNeutralButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                        System.exit(0);
-                    }
-                })
-                .create();
-        dialog.show();
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if ((System.currentTimeMillis() - exitTime) > 2000) {
+                Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                exitTime = System.currentTimeMillis();
+            } else {
+                finish();
+                System.exit(0);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

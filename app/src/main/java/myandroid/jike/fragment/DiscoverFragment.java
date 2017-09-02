@@ -16,10 +16,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
+import myandroid.jike.AppConfig;
 import myandroid.jike.R;
 import myandroid.jike.activity.NewsDetailActivity;
 import myandroid.jike.adapter.NewsAdapter;
@@ -28,31 +33,52 @@ import myandroid.jike.news.NewsBean;
 import myandroid.jike.news.NewsResult;
 import myandroid.jike.sqlite.DatabaseHelper;
 import myandroid.jike.utils.NewsJsonUtils;
+import myandroid.jike.view.AutoSwipeRefreshLayout;
 
 
 /**
  * Created by quxia on 2017/8/15.
  */
-public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener,OnLoadNewsResultListener {
+public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener,OnLoadNewsResultListener{
 
     private final static String TAG = "DiscoverFragment";
-    private SwipeRefreshLayout mSwipeRefreshWidget;
+
+    private LinearLayout layout;
+    private TextView text;
+    private AutoSwipeRefreshLayout mSwipeRefreshWidget;
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
     private NewsAdapter mAdapter;
-    private List<NewsBean> mNewsBeanList = new ArrayList<>();
+    private List<NewsBean> mNewsBeanList= new ArrayList<>();
     private int pageIndex;
 
     private static int index = 1;
 
     private DatabaseHelper databaseHelper;
     private List<String> attentionList = new ArrayList<>();
+    private Boolean isNight = false;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setBackground(isNight);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.discover, null);
 
-        mSwipeRefreshWidget = (SwipeRefreshLayout) view.findViewById(R.id.id_discover_swipe_refresh_widget);
+        layout = (LinearLayout) view.findViewById(R.id.id_discover_layout);
+        text  = (TextView) view.findViewById(R.id.id_discover_text);
+
+        mSwipeRefreshWidget = (AutoSwipeRefreshLayout) view.findViewById(R.id.id_discover_swipe_refresh_widget);
         mSwipeRefreshWidget.setColorSchemeResources(R.color.primary,
                 R.color.primary_dark, R.color.primary_light,
                 R.color.accent);
@@ -70,8 +96,7 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         mAdapter = new NewsAdapter(getContext(),mNewsBeanList);
         mRecyclerView.setAdapter(mAdapter);
-        //加载数据
-        onRefresh();
+
 
         mAdapter.setOnItemClickListener(new NewsAdapter.OnItemClickListener() {
             @Override
@@ -103,20 +128,46 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
 
+                //滑动到了底部时刷新
                 if (newState == RecyclerView.SCROLL_STATE_IDLE
-                        && lastVisibleItem + 1 == mAdapter.getItemCount()
                         && mAdapter.isShowFooter()) {
                     //加载更多
+                    mAdapter.setShowFooter(false);
+                    onRefresh();
+//                    mAdapter.notifyDataSetChanged();
+//                    mRecyclerView.requestLayout();
                     Log.e("TAG", "loading more data");
+                    Toast.makeText(getContext(),"已加载到最新",Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                //lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();
+                RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
+                //判断是当前layoutManager是否为LinearLayoutManager
+                // 只有LinearLayoutManager才有查找第一个和最后一个可见view位置的方法
+                if (layoutManager instanceof LinearLayoutManager) {
+                    LinearLayoutManager linearManager = (LinearLayoutManager) layoutManager;
+                    //获取最后一个可见view的位置
+                    lastVisibleItem = linearManager.findLastVisibleItemPosition();
+                }
+                if( lastVisibleItem + 1 == mAdapter.getItemCount()){
+                    mAdapter.setShowFooter(true);
+                }else
+                    mAdapter.setShowFooter(false);
             }
         });
+
+        //加载数据
+        mSwipeRefreshWidget.autoRefresh();
+        mAdapter.notifyDataSetChanged();
+
+        AppConfig appConfig = new AppConfig(getContext());
+        isNight = appConfig.getNightModeSwitch();
+        Log.e("tag", String.valueOf(isNight));
+        setBackground(isNight);
+
         return view;
     }
 
@@ -131,7 +182,7 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
     public void addNews(List<NewsBean> newsList) {
         mAdapter.setShowFooter(true);
         if(mNewsBeanList == null) {
-            mNewsBeanList = new ArrayList<NewsBean>();
+            mNewsBeanList = new LinkedList<>();
         }
         mNewsBeanList.addAll(newsList);
         if(pageIndex == 0) {
@@ -159,6 +210,7 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
     @Override
     public void onRefresh() {
         showProgress();
+       // Toast.makeText(getContext(),"正在加载",Toast.LENGTH_SHORT).show();
         //更新mNewsBeanList
         String type = "top";
         int size = attentionList.size();
@@ -196,22 +248,28 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
         index ++;
         NewsJsonUtils.getNews(type,this);
         mAdapter.notifyDataSetChanged();
+
         new Handler().postDelayed(new Runnable(){
             public void run() {
                 hideProgress();
             }
         }, 1000);
+        Log.e(TAG,"onRefresh");
+
     }
 
     //加载成功则添加到mNewsBeanList
     @Override
     public void onSuccess(NewsResult newsResult) {
        //addNews(newsResult.getNewsBeen());
-        int size  =newsResult.getNewsBeen().size();
-        for(int i = 0;i< size ;i++){
-            this.mNewsBeanList.add(0,newsResult.getNewsBeen().get(i));
-        }
-        Log.e(TAG,"onRefresh");
+//        int size  =newsResult.getNewsBeen().size();
+//        for(int i = 0;i< size ;i++){
+//            this.mNewsBeanList.add(0,newsResult.getNewsBeen().get(i));
+//        }
+        //Log.e(TAG,"onRefresh");
+        mAdapter.appendNewsBeanList(newsResult.getNewsBeen());
+        mAdapter.notifyDataSetChanged();
+        mRecyclerView.requestLayout();
     }
 
     @Override
@@ -219,4 +277,17 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
         showLoadFailMsg();
         Log.e(TAG,"failure");
     }
+
+    private void setBackground(Boolean isNight) {
+        if(isNight){
+           layout.setBackgroundColor(getResources().getColor(R.color.bg_night));
+           text.setTextColor(getResources().getColor(R.color.text_night));
+        }
+       else{
+           layout.setBackgroundColor(getResources().getColor(R.color.background));
+         text.setTextColor(getResources().getColor(R.color.primary_text));}
+       }
+
+
 }
+

@@ -69,7 +69,7 @@ public class NewsDetailActivity extends SwipeBackActivity {
             public void run() {
                 hideProgress();
             }
-        }, 3000);
+        }, 1000);
     }
 
 

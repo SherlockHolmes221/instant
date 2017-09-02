@@ -28,6 +28,9 @@
         <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.ShowAttentionListActivity"/>
         <activity android:name=".activity.NewsDetailActivity"/>
+        <activity android:name=".activity.SetLockActivity"/>
+        <activity android:name=".activity.UnlockActivity"/>
+
     </application>
 
 </manifest>

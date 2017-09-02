@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:id="@+id/id_mine_layout"
+    android:background="@color/background"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -14,6 +13,7 @@
     android:layout_height="40dp">
 
     <TextView
+        android:id="@+id/id_mine_text1"
         android:layout_centerInParent="true"
         android:textSize="30dp"
         android:text="我的"
@@ -23,6 +23,8 @@
 
 
 <LinearLayout
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
     android:id="@+id/id_mine_login"
     android:paddingTop="10dp"
     android:orientation="horizontal"
@@ -41,6 +43,7 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:id="@+id/id_mine_text2"
             android:textSize="20dp"
             android:text="点击登陆账号"
             android:layout_width="wrap_content"
@@ -48,6 +51,7 @@
 
 
         <TextView
+            android:id="@+id/id_mine_text3"
             android:paddingTop="8dp"
             android:text="享用创建主题、同步数据等完善功能"
             android:layout_width="wrap_content"
@@ -67,7 +71,7 @@
         android:orientation="vertical"
         android:background="@color/baseColor">
         <android.support.v7.widget.CardView
-            android:layout_marginTop="3dp"
+            android:id="@+id/id_mine_CardView5"
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
@@ -87,31 +91,23 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/ic_first"/>
+                    android:src="@drawable/mine_add"/>
 
                 <TextView
+                    android:id="@+id/id_mine_text4"
                     android:layout_marginLeft="100dp"
                     android:layout_marginStart="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_width="fill_parent"
+                    android:layout_width="wrap_content"
                     android:text="添加或取消关注"
                     android:layout_centerVertical="true"
 
                     android:background="@color/background"/>
-                <ImageView
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="50dp"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="50dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/home_arrow"
-                    />
+
             </RelativeLayout>
         </android.support.v7.widget.CardView>
         <android.support.v7.widget.CardView
-            android:layout_marginTop="5dp"
+            android:id="@+id/id_mine_CardView1"
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
@@ -131,39 +127,30 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/ic_sixth"/>
+                    android:src="@drawable/mine_collect"/>
 
                 <TextView
+                    android:id="@+id/id_mine_text5"
                     android:layout_marginLeft="100dp"
                     android:layout_marginStart="100dp"
                     android:layout_centerVertical="true"
                     android:layout_height="wrap_content"
-                    android:layout_width="fill_parent"
+                    android:layout_width="wrap_content"
                     android:text="我的收藏"
 
 
                     android:background="@color/background"/>
-                <ImageView
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="50dp"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="50dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/home_arrow"
-                    />
+
             </RelativeLayout>
         </android.support.v7.widget.CardView>
         <android.support.v7.widget.CardView
-            android:layout_marginTop="5dp"
+            android:id="@+id/id_mine_CardView2"
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="4dp"
             app:cardElevation="1dp"
-
             app:cardBackgroundColor="@color/background">
             <RelativeLayout
                 android:padding="10dp"
@@ -177,30 +164,21 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/ic_third"/>
+                    android:src="@drawable/mine_inform"/>
 
                 <TextView
+                    android:id="@+id/id_mine_text6"
                     android:layout_marginLeft="100dp"
                     android:layout_marginStart="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_width="fill_parent"
+                    android:layout_width="wrap_content"
                     android:text="动态通知"
                     android:layout_centerVertical="true"
                     android:background="@color/background"/>
-                <ImageView
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="50dp"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="50dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/home_arrow"
-                    />
             </RelativeLayout>
         </android.support.v7.widget.CardView>
         <android.support.v7.widget.CardView
-            android:layout_marginTop="5dp"
+            android:id="@+id/id_mine_CardView3"
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
@@ -220,36 +198,22 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/ic_fourth"/>
+                    android:src="@drawable/mine_help"/>
 
                 <TextView
+                    android:id="@+id/id_mine_text7"
                     android:layout_marginLeft="100dp"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_width="fill_parent"
-                    android:text="小秘书"
-
-                    android:background="@color/background"/>
-                <ImageView
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="50dp"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="50dp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/home_arrow"
-                    />
+                    android:text="小秘书"
+                    android:background="@color/background"/>
             </RelativeLayout>
         </android.support.v7.widget.CardView>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="5dp"></LinearLayout>
-
         <android.support.v7.widget.CardView
-            android:layout_marginTop="5dp"
+            android:id="@+id/id_mine_CardView4"
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
@@ -269,28 +233,52 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/ic_eighth"/>
+                    android:src="@drawable/mine_create"/>
 
                 <TextView
+                    android:id="@+id/id_mine_text8"
                     android:layout_marginLeft="100dp"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_width="fill_parent"
+                    android:layout_width="wrap_content"
                     android:text="创建主题"
                     android:background="@color/background"/>
-                <ImageView
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="50dp"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="50dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/home_arrow"
-                    />
             </RelativeLayout>
         </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/id_mine_CardView6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="1dp"
+            app:cardBackgroundColor="@color/background">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="15dp"
+            >
+            <TextView
+                android:id="@+id/id_mine_text9"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="夜间模式"
+                android:textSize="16sp"
+                android:layout_weight="1" />
+
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/id_mine_night_switch" />
+
+        </LinearLayout>
+        </android.support.v7.widget.CardView>
+
     </LinearLayout>
 
 </LinearLayout>

@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import myandroid.jike.AppConfig;
 import myandroid.jike.R;
 import myandroid.jike.sqlite.DatabaseHelper;
 
@@ -56,20 +57,34 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome);
 
-        preferences = getSharedPreferences("WelcomeActivity", Context.MODE_PRIVATE);
-        //判断是不是首次登录，
-        if (preferences.getBoolean("firstStart", true)) {
-            editor = preferences.edit();
-            //将登录标志位设置为false，下次登录时不在显示首次登录界面
-            editor.putBoolean("firstStart", false);
-            editor.apply();
-        }else{
+        AppConfig appConfig = new AppConfig(this);
+        String password = appConfig.isSetPassword();
+
+        if(appConfig.isFirst()){
+            appConfig.setIsFirst(false);
             Intent intent = new Intent();
-            intent.setClass(this,MainActivity.class);
+            intent.setClass(this,SetLockActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             finish();
+        }else{
+            if(password.equals(" ")){     //未设置手势密码
+                Intent intent = new Intent();
+                intent.setClass(this,SetLockActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+            }
+            else{                       //已经设置手势密码
+                Intent intent = new Intent();
+                intent.setClass(this,UnlockActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+            }
+
         }
+
 
         new Thread(new Runnable() {
             @Override
@@ -119,7 +134,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
                          Button button = (Button) view.findViewById(R.id.id_welcome_button);
                          if(!attention[i]){
-                             Toast.makeText(context,"已关注"+iconName[i],Toast.LENGTH_SHORT).show();
+                            // Toast.makeText(context,"已关注"+iconName[i],Toast.LENGTH_SHORT).show();
                              attentionList.add(iconName[i]);
                              attention[i] = true;
                              button.setAlpha(0.8f);
