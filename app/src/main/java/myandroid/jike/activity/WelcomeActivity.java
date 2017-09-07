@@ -36,6 +36,8 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private List<Map<String, Object>> dataList;
 
+    private String password;
+
     private int[] icon = {R.drawable.top,R.drawable.shehui,  R.drawable.guonei,
             R.drawable.guoji,R.drawable.yule,R.drawable.tiyu,
             R.drawable.junshi,R.drawable.keji,R.drawable.caijing,R.drawable.shishang,
@@ -58,26 +60,22 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.welcome);
 
         AppConfig appConfig = new AppConfig(this);
-        String password = appConfig.isSetPassword();
+        password = appConfig.isSetPassword();
 
         if(appConfig.isFirst()){
             appConfig.setIsFirst(false);
-            Intent intent = new Intent();
-            intent.setClass(this,SetLockActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            finish();
+
         }else{
             if(password.equals(" ")){     //未设置手势密码
                 Intent intent = new Intent();
-                intent.setClass(this,SetLockActivity.class);
+                intent.setClass(WelcomeActivity.this,SetLockActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();
             }
             else{                       //已经设置手势密码
                 Intent intent = new Intent();
-                intent.setClass(this,UnlockActivity.class);
+                intent.setClass(WelcomeActivity.this,UnlockActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();
@@ -97,9 +95,20 @@ public class WelcomeActivity extends AppCompatActivity {
                         databaseHelper = new DatabaseHelper(context);
                         databaseHelper.insertData(attentionList);
 
-                        Intent intent = new Intent();
-                        intent.setClass(WelcomeActivity.this,MainActivity.class);
-                        startActivity(intent);
+                        if(password.equals(" ")){     //未设置手势密码
+                            Intent intent = new Intent();
+                            intent.setClass(WelcomeActivity.this,SetLockActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                            finish();
+                        }
+                        else{                       //已经设置手势密码
+                            Intent intent = new Intent();
+                            intent.setClass(WelcomeActivity.this,UnlockActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                            finish();
+                        }
                     }
                 });
             }

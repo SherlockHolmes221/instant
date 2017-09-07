@@ -1,19 +1,16 @@
 package myandroid.jike.adapter;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
+import myandroid.jike.R;
 import myandroid.jike.news.NewsBean;
 import myandroid.jike.view.MyImageView;
 
@@ -48,7 +45,7 @@ public class NewsAdapter2 extends BaseAdapter{
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
         if (convertView == null) {
-            convertView = layoutInflater.inflate(R.layout.RandA_list_item, null);
+            convertView = layoutInflater.inflate(R.layout.randa_list_item, null);
             viewHolder = new ViewHolder();
             viewHolder.item_img_icon = (ImageView)convertView.findViewById(R.id.item_img_icon);
             viewHolder.item_tv_type = (TextView)convertView.findViewById(R.id.item_tv_type);
@@ -62,13 +59,14 @@ public class NewsAdapter2 extends BaseAdapter{
             viewHolder = (ViewHolder) convertView.getTag();
         }
         NewsBean newsBean = datas.get(position);
-        viewHolder.item_img_icon.setImageDrawable(Drawable.newsBean.getCategory());
+       // viewHolder.item_img_icon.setImageDrawable(Drawable.newsBean.getCategory());
         viewHolder.item_tv_type.setText(newsBean.getCategory());
         viewHolder.item_tv_time.setText(newsBean.getDate());
         viewHolder.item_tv_title.setText(newsBean.getTitle());
         viewHolder.item_img_pic1.setImageUrl(newsBean.getThumbnail_pic_s());
         viewHolder.item_img_pic2.setImageUrl(newsBean.getThumbnail_pic_s02());
         viewHolder.item_img_pic3.setImageUrl(newsBean.getThumbnail_pic_s03());
+        return convertView;
 
     }
     class ViewHolder {

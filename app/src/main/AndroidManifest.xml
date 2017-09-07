@@ -21,10 +21,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.WelcomeActivity"
-                   android:hardwareAccelerated="true"/>
-
-        <activity android:name=".activity.Recommend"/>
+        <activity android:name=".activity.WelcomeActivity"/>
         <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.ShowAttentionListActivity"/>
         <activity android:name=".activity.NewsDetailActivity"/>

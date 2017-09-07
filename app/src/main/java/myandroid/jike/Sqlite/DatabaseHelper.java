@@ -1,4 +1,4 @@
-package myandroid.jike.Sqlite;
+package myandroid.jike.sqlite;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -15,7 +15,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public DatabaseHelper(Context context) {
         super(context,"AttentionList", null, 1);
-
     }
 
     @Override

@@ -86,6 +86,10 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         databaseHelper = new DatabaseHelper(view.getContext());
         attentionList = databaseHelper.getAttentionList();
+        if(attentionList == null){
+            attentionList.add("头条");
+            databaseHelper.insertData(attentionList);
+        }
 
         mRecyclerView = (RecyclerView)view.findViewById(R.id.id_discover_recycle_view);
         mRecyclerView.setHasFixedSize(true);
@@ -213,39 +217,47 @@ public class DiscoverFragment extends Fragment implements SwipeRefreshLayout.OnR
        // Toast.makeText(getContext(),"正在加载",Toast.LENGTH_SHORT).show();
         //更新mNewsBeanList
         String type = "top";
+        attentionList = databaseHelper.getAttentionList();
         int size = attentionList.size();
-        int i = index % size;
-        if(attentionList.get(i).equals("头条")){
+
+        if(size == 0){
             type  = "top";
         }
-        if(attentionList.get(i).equals("社会")){
-            type  = "shehui";
+        else{
+            int i = index % size;
+            if(attentionList.get(i).equals("头条")){
+                type  = "top";
+            }
+            if(attentionList.get(i).equals("社会")){
+                type  = "shehui";
+            }
+            if(attentionList.get(i).equals("国内")){
+                type  = "guonei";
+            }
+            if(attentionList.get(i).equals("国际")){
+                type  = "guoji";
+            }
+            if(attentionList.get(i).equals("娱乐")){
+                type  = "yule";
+            }
+            if(attentionList.get(i).equals("体育")){
+                type  = "tiyu";
+            }
+            if(attentionList.get(i).equals("军事")){
+                type  = "junshi";
+            }
+            if(attentionList.get(i).equals("科技")){
+                type  = "keji";
+            }
+            if(attentionList.get(i).equals("财经")){
+                type  = "caijing";
+            }
+            if(attentionList.get(i).equals("时尚")){
+                type  = "shishang";
+            }
+            index ++;
         }
-        if(attentionList.get(i).equals("国内")){
-            type  = "guonei";
-        }
-        if(attentionList.get(i).equals("国际")){
-            type  = "guoji";
-        }
-        if(attentionList.get(i).equals("娱乐")){
-            type  = "yule";
-        }
-        if(attentionList.get(i).equals("体育")){
-            type  = "tiyu";
-        }
-        if(attentionList.get(i).equals("军事")){
-            type  = "junshi";
-        }
-        if(attentionList.get(i).equals("科技")){
-            type  = "keji";
-        }
-        if(attentionList.get(i).equals("财经")){
-            type  = "caijing";
-        }
-        if(attentionList.get(i).equals("时尚")){
-            type  = "shishang";
-        }
-        index ++;
+
         NewsJsonUtils.getNews(type,this);
         mAdapter.notifyDataSetChanged();
 

@@ -37,8 +37,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mViewPager = (ViewPager) findViewById(R.id.id_viewPage);
         initUI();
-
-
     }
 
     //UI界面的初始化
