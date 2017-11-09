@@ -20,7 +20,7 @@ import myandroid.jike.R;
 import myandroid.jike.fragment.AttentionFragment;
 import myandroid.jike.fragment.DiscoverFragment;
 import myandroid.jike.fragment.MineFragment;
-import myandroid.jike.fragment.RecommendFragment;
+import myandroid.jike.fragment.FaceFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private void initUI() {
 
         //四个fragment
-        mFragmentList.add(new RecommendFragment());//推荐
+        mFragmentList.add(new FaceFragment());//人脸识别
         mFragmentList.add(new AttentionFragment());//关注
         mFragmentList.add(new DiscoverFragment());//发现
         mFragmentList.add(new MineFragment());//我的
