@@ -27,6 +27,7 @@
         <activity android:name=".activity.NewsDetailActivity"/>
         <activity android:name=".activity.SetLockActivity"/>
         <activity android:name=".activity.UnlockActivity"/>
+        <activity android:name=".activity.FaceResultActivity"/>
 
     </application>
 

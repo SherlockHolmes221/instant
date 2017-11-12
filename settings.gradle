@@ -1,1 +1,1 @@
-include ':app', ':navigationtabbar', ':swipeback'
+include ':app', ':navigationtabbar', ':swipeback', ':takephoto_library'
